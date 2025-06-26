@@ -1,0 +1,7 @@
+**/IEC61499/SnapshotCompiles/
+**/IEC61499/System/snapshot.xml
+**/IEC61499/obj/
+**/HMI/obj/
+**/.lock_sln
+**/HwConfiguration/obj/
+**/bin
