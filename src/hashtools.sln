@@ -1,0 +1,84 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+# SharpDevelop 5.2
+Project("{EAD1E85F-CEF5-4861-AFF8-597F2DDE70FC}") = "IEC61499", "IEC61499\IEC61499.dfbproj", "{60A06026-0B9A-448F-8365-55A6184C999A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HMI", "HMI\HMI.csproj", "{BBB0C6CF-1220-457A-A297-F07D63AE6F0B}"
+EndProject
+Project("{72AEB29F-A91B-8B3D-40ED-1C96841A14A3}") = "HwConfiguration", "HwConfiguration\HwConfiguration.hwconfigproj", "{708EBCA9-B5E8-4625-94E0-C39B7F0C0D73}"
+EndProject
+Project("{E25C2A81-DD87-490C-A304-820B0BA163F2}") = "AssetLinkData", "AssetLinkData\AssetLinkData.assetLinkDataproj", "{834FD80D-5036-43C2-8E53-A4AB98650417}"
+EndProject
+Project("{B8625A29-8134-4135-BEBD-5371646CD051}") = "TopologyManager", "Topology\TopologyManager.topologyproj", "{B9A7CAC8-32EA-4D24-A57D-BF73619A0C3F}"
+EndProject
+Project("{AF5A4E9E-1CB6-4325-AE5C-F3437C6CEE36}") = "ATVHMIPlugin", "ATVHMIPlugin\ATVHMIPlugin.atvdisplayproj", "{945E68B1-BDF6-44B5-8609-7DEFEF3C9C74}"
+EndProject
+Project("{734B64AD-5918-4A98-921E-F30440701D97}") = "AvevaOMI", "AvevaOMI\AvevaOMI.omiproj", "{22914CA6-E303-4F62-AB02-8874EEF83281}"
+EndProject
+Project("{EAD1E85F-CEF5-4861-AFF8-597F2DDE70FC}") = "SEFR.HashTools", "SEFR.HashTools\IEC61499\SEFR.HashTools.dfbproj", "{F5D6224C-E458-437E-8FDE-A71A35DA15C7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SEFR.HashTools.HMI", "SEFR.HashTools\HMI\SEFR.HashTools.HMI.csproj", "{76116BC8-7FD7-42CD-97E4-00C998B1865E}"
+EndProject
+Project("{72AEB29F-A91B-8B3D-40ED-1C96841A14A3}") = "SEFR.HashTools.HwConfiguration", "SEFR.HashTools\HwConfiguration\SEFR.HashTools.HwConfiguration.hwconfigproj", "{31C3EEF4-DC3F-412B-99D8-43676709B5C9}"
+EndProject
+Project("{E25C2A81-DD87-490C-A304-820B0BA163F2}") = "SEFR.HashTools.AssetLinkData", "SEFR.HashTools\AssetLinkData\SEFR.HashTools.AssetLinkData.assetLinkDataproj", "{1205ACE0-49CD-4D5B-9F58-3E901AC53696}"
+EndProject
+Project("{AF5A4E9E-1CB6-4325-AE5C-F3437C6CEE36}") = "SEFR.HashTools.ATVHMIPlugin", "SEFR.HashTools\ATVHMIPlugin\SEFR.HashTools.ATVHMIPlugin.atvdisplayproj", "{235064BD-4B93-4CC6-B7ED-E3EDA7A2B52D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Windows = Debug|Windows
+		Release|Windows = Release|Windows
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{60A06026-0B9A-448F-8365-55A6184C999A}.Debug|Windows.ActiveCfg = Debug|Windows
+		{60A06026-0B9A-448F-8365-55A6184C999A}.Debug|Windows.Build.0 = Debug|Windows
+		{60A06026-0B9A-448F-8365-55A6184C999A}.Release|Windows.ActiveCfg = Release|Windows
+		{60A06026-0B9A-448F-8365-55A6184C999A}.Release|Windows.Build.0 = Release|Windows
+		{BBB0C6CF-1220-457A-A297-F07D63AE6F0B}.Debug|Windows.ActiveCfg = Debug|Windows
+		{BBB0C6CF-1220-457A-A297-F07D63AE6F0B}.Debug|Windows.Build.0 = Debug|Windows
+		{BBB0C6CF-1220-457A-A297-F07D63AE6F0B}.Release|Windows.ActiveCfg = Release|Windows
+		{BBB0C6CF-1220-457A-A297-F07D63AE6F0B}.Release|Windows.Build.0 = Release|Windows
+		{708EBCA9-B5E8-4625-94E0-C39B7F0C0D73}.Debug|Windows.ActiveCfg = Debug|Windows
+		{708EBCA9-B5E8-4625-94E0-C39B7F0C0D73}.Debug|Windows.Build.0 = Debug|Windows
+		{708EBCA9-B5E8-4625-94E0-C39B7F0C0D73}.Release|Windows.ActiveCfg = Release|Windows
+		{708EBCA9-B5E8-4625-94E0-C39B7F0C0D73}.Release|Windows.Build.0 = Release|Windows
+		{834FD80D-5036-43C2-8E53-A4AB98650417}.Debug|Windows.ActiveCfg = Debug|Windows
+		{834FD80D-5036-43C2-8E53-A4AB98650417}.Debug|Windows.Build.0 = Debug|Windows
+		{834FD80D-5036-43C2-8E53-A4AB98650417}.Release|Windows.ActiveCfg = Release|Windows
+		{834FD80D-5036-43C2-8E53-A4AB98650417}.Release|Windows.Build.0 = Release|Windows
+		{B9A7CAC8-32EA-4D24-A57D-BF73619A0C3F}.Debug|Windows.ActiveCfg = Debug|Windows
+		{B9A7CAC8-32EA-4D24-A57D-BF73619A0C3F}.Debug|Windows.Build.0 = Debug|Windows
+		{B9A7CAC8-32EA-4D24-A57D-BF73619A0C3F}.Release|Windows.ActiveCfg = Release|Windows
+		{B9A7CAC8-32EA-4D24-A57D-BF73619A0C3F}.Release|Windows.Build.0 = Release|Windows
+		{945E68B1-BDF6-44B5-8609-7DEFEF3C9C74}.Debug|Windows.ActiveCfg = Debug|Windows
+		{945E68B1-BDF6-44B5-8609-7DEFEF3C9C74}.Debug|Windows.Build.0 = Debug|Windows
+		{945E68B1-BDF6-44B5-8609-7DEFEF3C9C74}.Release|Windows.ActiveCfg = Release|Windows
+		{945E68B1-BDF6-44B5-8609-7DEFEF3C9C74}.Release|Windows.Build.0 = Release|Windows
+		{22914CA6-E303-4F62-AB02-8874EEF83281}.Debug|Windows.ActiveCfg = Debug|Windows
+		{22914CA6-E303-4F62-AB02-8874EEF83281}.Debug|Windows.Build.0 = Debug|Windows
+		{22914CA6-E303-4F62-AB02-8874EEF83281}.Release|Windows.ActiveCfg = Release|Windows
+		{22914CA6-E303-4F62-AB02-8874EEF83281}.Release|Windows.Build.0 = Release|Windows
+		{F5D6224C-E458-437E-8FDE-A71A35DA15C7}.Debug|Windows.ActiveCfg = Debug|Windows
+		{F5D6224C-E458-437E-8FDE-A71A35DA15C7}.Debug|Windows.Build.0 = Debug|Windows
+		{F5D6224C-E458-437E-8FDE-A71A35DA15C7}.Release|Windows.ActiveCfg = Release|Windows
+		{F5D6224C-E458-437E-8FDE-A71A35DA15C7}.Release|Windows.Build.0 = Release|Windows
+		{76116BC8-7FD7-42CD-97E4-00C998B1865E}.Debug|Windows.ActiveCfg = Debug|Windows
+		{76116BC8-7FD7-42CD-97E4-00C998B1865E}.Debug|Windows.Build.0 = Debug|Windows
+		{76116BC8-7FD7-42CD-97E4-00C998B1865E}.Release|Windows.ActiveCfg = Release|Windows
+		{76116BC8-7FD7-42CD-97E4-00C998B1865E}.Release|Windows.Build.0 = Release|Windows
+		{31C3EEF4-DC3F-412B-99D8-43676709B5C9}.Debug|Windows.ActiveCfg = Debug|Windows
+		{31C3EEF4-DC3F-412B-99D8-43676709B5C9}.Debug|Windows.Build.0 = Debug|Windows
+		{31C3EEF4-DC3F-412B-99D8-43676709B5C9}.Release|Windows.ActiveCfg = Release|Windows
+		{31C3EEF4-DC3F-412B-99D8-43676709B5C9}.Release|Windows.Build.0 = Release|Windows
+		{1205ACE0-49CD-4D5B-9F58-3E901AC53696}.Debug|Windows.ActiveCfg = Debug|Windows
+		{1205ACE0-49CD-4D5B-9F58-3E901AC53696}.Debug|Windows.Build.0 = Debug|Windows
+		{1205ACE0-49CD-4D5B-9F58-3E901AC53696}.Release|Windows.ActiveCfg = Release|Windows
+		{1205ACE0-49CD-4D5B-9F58-3E901AC53696}.Release|Windows.Build.0 = Release|Windows
+		{235064BD-4B93-4CC6-B7ED-E3EDA7A2B52D}.Debug|Windows.ActiveCfg = Debug|Windows
+		{235064BD-4B93-4CC6-B7ED-E3EDA7A2B52D}.Debug|Windows.Build.0 = Debug|Windows
+		{235064BD-4B93-4CC6-B7ED-E3EDA7A2B52D}.Release|Windows.ActiveCfg = Release|Windows
+		{235064BD-4B93-4CC6-B7ED-E3EDA7A2B52D}.Release|Windows.Build.0 = Release|Windows
+	EndGlobalSection
+EndGlobal

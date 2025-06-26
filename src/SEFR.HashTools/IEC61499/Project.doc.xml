@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<article xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" version="5.0" xml:id="SEFR.HashTools.article_top" xmlns="http://docbook.org/ns/docbook">
+  <info>
+    <title xml:id="SEFR.HashTools.article_top.title">Library: SEFR.HashTools</title>
+    <authorgroup>
+      <author>
+        <email>godefroy.reffet@se.com</email>
+        <personname>
+          <firstname>Godefroy</firstname>
+          <surname>REFFET</surname>
+        </personname>
+        <affiliation>
+          <jobtitle>System Architect Expert</jobtitle>
+          <org>
+            <address>
+              <street />
+              <city />
+              <country />
+              <postcode />
+              <phone />
+              <fax />
+            </address>
+          </org>
+        </affiliation>
+      </author>
+    </authorgroup>
+    <org>
+      <orgname>Schneider Electric France</orgname>
+      <address>
+        <street />
+        <city />
+        <country />
+        <postcode />
+        <phone />
+        <fax />
+      </address>
+    </org>
+    <abstract>This library includes several useful hash functions: MD5, SHA-1, SHA-224, SHA-256, SHA-384, SHA-512, SHA-512/224, and SHA-512/256.
+
+The code is inspired by the OSCAT Network library and adapted for Ecostruxure Automation Expert.</abstract>
+  </info>
+</article>

@@ -1,0 +1,97 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
+  <PropertyGroup>
+    <ProjectGuid>{F5D6224C-E458-437E-8FDE-A71A35DA15C7}</ProjectGuid>
+    <ProjectTypeGuids>{EAD1E85F-CEF5-4861-AFF8-597F2DDE70FC}</ProjectTypeGuids>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">Windows</Platform>
+    <OutputType>Library</OutputType>
+    <RootNamespace>SEFR.HashTools</RootNamespace>
+    <AssemblyName>SEFR.HashTools</AssemblyName>
+    <NxtVersion>24.1.0.0</NxtVersion>
+    <CheckConnectionsStrictly>TRUE</CheckConnectionsStrictly>
+    <ProjectType>IEC61499</ProjectType>
+    <CheckGenericInstances>False</CheckGenericInstances>
+    <ConvertStringValues>False</ConvertStringValues>
+    <HMIProject>SEFR.HashTools.HMI</HMIProject>
+    <HardwareConfigurationMigrationVersion>1</HardwareConfigurationMigrationVersion>
+    <ProceduralAutomationConfigurationMigrationVersion>1</ProceduralAutomationConfigurationMigrationVersion>
+    <MultiUserSupport>true</MultiUserSupport>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Platform)' == 'AnyCPU' " />
+  <PropertyGroup Condition=" '$(Platform)' == 'Windows' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <OutputPath>bin\Default\</OutputPath>
+    <DebugSymbols>True</DebugSymbols>
+    <DebugType>Full</DebugType>
+    <Optimize>False</Optimize>
+    <IntermediateOutputPath>obj\Default\</IntermediateOutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <OutputPath>bin\Default\</OutputPath>
+    <DebugSymbols>False</DebugSymbols>
+    <DebugType>None</DebugType>
+    <Optimize>True</Optimize>
+    <IntermediateOutputPath>obj\Default\</IntermediateOutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|Windows' ">
+    <Version>1.0</Version>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Verify' ">
+    <OutputPath>bin\Verify</OutputPath>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>Full</DebugType>
+    <Optimize>False</Optimize>
+    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="..\General\ProjectInfo.xml" />
+    <None Include="Project.doc.xml" />
+    <None Include="SnapshotCompiles\{5FC5DE92-53CA-4E9F-B9FB-CB6019CD7CE4}\Default\SEFR.HashTools.snapshot" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Configuration" />
+    <Folder Include="License" />
+    <Folder Include="Log" />
+    <Folder Include="SnapshotCompiles" />
+    <Folder Include="SnapshotCompiles\{5FC5DE92-53CA-4E9F-B9FB-CB6019CD7CE4}" />
+    <Folder Include="SnapshotCompiles\{5FC5DE92-53CA-4E9F-B9FB-CB6019CD7CE4}\Default" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="HASH.fbt">
+      <IEC61499Type>Basic</IEC61499Type>
+    </Compile>
+    <Compile Include="POU\HASH_MD5.fct">
+      <IEC61499Type>Function</IEC61499Type>
+    </Compile>
+    <Compile Include="POU\HASH_SHA1.fct">
+      <IEC61499Type>Function</IEC61499Type>
+    </Compile>
+    <Compile Include="POU\HASH_SHA224.fct">
+      <IEC61499Type>Function</IEC61499Type>
+    </Compile>
+    <Compile Include="POU\HASH_SHA256.fct">
+      <IEC61499Type>Function</IEC61499Type>
+    </Compile>
+    <Compile Include="POU\HASH_SHA384.fct">
+      <IEC61499Type>Function</IEC61499Type>
+    </Compile>
+    <Compile Include="POU\HASH_SHA512.fct">
+      <IEC61499Type>Function</IEC61499Type>
+    </Compile>
+    <Compile Include="POU\HASH_SHA512_224.fct">
+      <IEC61499Type>Function</IEC61499Type>
+    </Compile>
+    <Compile Include="POU\HASH_SHA512_256.fct">
+      <IEC61499Type>Function</IEC61499Type>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Runtime.Base">
+      <Version>24.1.0.22</Version>
+    </Reference>
+  </ItemGroup>
+  <Import Project="$(SharpDevelopBinPath)\NxtControl.Build.61499.Targets" />
+</Project>

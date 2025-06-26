@@ -1,33 +1,37 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
   <PropertyGroup>
-    <ProjectGuid>{BBB0C6CF-1220-457A-A297-F07D63AE6F0B}</ProjectGuid>
+    <ProjectGuid>{76116BC8-7FD7-42CD-97E4-00C998B1865E}</ProjectGuid>
     <ProjectTypeGuids>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <OutputType>Library</OutputType>
-    <RootNamespace>HMI</RootNamespace>
-    <AssemblyName>HMI</AssemblyName>
+    <RootNamespace>SEFR.HashTools.HMI</RootNamespace>
+    <AssemblyName>SEFR.HashTools.HMI</AssemblyName>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <ProjectType>HMI</ProjectType>
-    <WarningsAsErrors>0618</WarningsAsErrors>
     <HMILibraries>HMIBaseSymbols:</HMILibraries>
-    <Theme>DefaultLight:Default|DefaultLight</Theme>
     <NxtVersion>24.1.0.0</NxtVersion>
     <EnableDefaultItems>false</EnableDefaultItems>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <ProjectType>HMI</ProjectType>
+    <WarningsAsErrors>0618</WarningsAsErrors>
     <ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>None</ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>
-    <CanvasLookAndFeel>Theme</CanvasLookAndFeel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Platform)' == 'AnyCPU' ">
+    <RegisterForComInterop>False</RegisterForComInterop>
+    <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
+    <BaseAddress>4194304</BaseAddress>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <FileAlignment>4096</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Platform)' == 'Windows' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
     <RegisterForComInterop>False</RegisterForComInterop>
     <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
     <BaseAddress>4194304</BaseAddress>
     <FileAlignment>4096</FileAlignment>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Platform)' == 'Windows' " />
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <OutputPath>bin\$(Platform)\Debug\</OutputPath>
     <DebugSymbols>true</DebugSymbols>
@@ -46,7 +50,7 @@
     <DefineConstants>DEBUG%3bTRACE</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|Windows' ">
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DefineConstants>DEBUG%3bTRACE</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DefineConstants>TRACE</DefineConstants>
@@ -68,16 +72,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Alarms\AlarmClasses.xml" />
-    <None Include="CanvasesResolutionList.xml" />
-    <None Include="Colors\Default.color.theme" />
-    <None Include="Colors\Default.do.theme" />
-    <None Include="Colors\DefaultLight.color.theme" />
-    <None Include="Colors\DefaultLight.do.theme" />
     <None Include="Colors\ProjectColors.xml" />
     <None Include="Colors\ProjectDrawingObjects.xml" />
     <None Include="ImageStorage\ImageStorage.xml" />
-    <none Include="Languages\neutral\Dictionary.Resources.xml" />
-    <none Include="Theme\Languages\neutral\Dictionary.Resources.xml" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="CommunicationProfile">
@@ -94,10 +91,6 @@
     <Reference Include="NxtControl.GuiFramework">
       <HintPath>NxtControl.GuiFramework</HintPath>
       <Private>False</Private>
-    </Reference>
-    <Reference Include="SE.DPAC.HMI">
-      <Version>24.1.0.33</Version>
-      <HintPath>SE.DPAC.HMI</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

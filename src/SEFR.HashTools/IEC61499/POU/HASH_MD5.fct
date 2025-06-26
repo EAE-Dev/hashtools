@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE POUType SYSTEM "../LibraryElement.dtd">
+<POUType GUID="497796bd-ef2b-4e97-b99d-95aec065b6dd" Name="HASH_MD5" Comment="Function" Namespace="SEFR.HashTools">
+  <Attribute Name="Configuration.FB.IDCounter" Value="0" />
+  <Identification Standard="1131-3" />
+  <VersionInfo Version="0.0" Author="SESA66148" Date="11/21/2024" Remarks="Template" />
+  <InterfaceList ReturnValueType="STRING[32]">
+    <InputVars>
+      <VarDeclaration Name="IN1" Type="STRING[65535]" />
+    </InputVars>
+  </InterfaceList>
+  <POUBasicFunction>
+    <Algorithm Name="HASH_MD5" Comment="Algorithm">
+      <ST><![CDATA[VAR_TEMP
+  i,p,n,L : DINT;
+  H : ARRAY[4] OF DWORD := [16#67452301,16#EFCDAB89,16#98BADCFE,16#10325476];
+  W : ARRAY[4] OF DWORD;
+  T : ARRAY[64] OF DWORD := [
+  		16#D76AA478,16#E8C7B756,16#242070DB,16#C1BDCEEE,16#F57C0FAF,16#4787C62A,16#A8304613,16#FD469501,16#698098D8,16#8B44F7AF,16#FFFF5BB1,16#895CD7BE,16#6B901122,16#FD987193,16#A679438E,16#49B40821,
+		16#F61E2562,16#C040B340,16#265E5A51,16#E9B6C7AA,16#D62F105D,16#02441453,16#D8A1E681,16#E7D3FBC8,16#21E1CDE6,16#C33707D6,16#F4D50D87,16#455A14ED,16#A9E3E905,16#FCEFA3F8,16#676F02D9,16#8D2A4C8A,
+		16#FFFA3942,16#8771F681,16#6D9D6122,16#FDE5380C,16#A4BEEA44,16#4BDECFA9,16#F6BB4B60,16#BEBFBC70,16#289B7EC6,16#EAA127FA,16#D4EF3085,16#04881D05,16#D9D4D039,16#E6DB99E5,16#1FA27CF8,16#C4AC5665,
+		16#F4292244,16#432AFF97,16#AB9423A7,16#FC93A039,16#655B59C3,16#8F0CCC92,16#FFEFF47D,16#85845DD1,16#6FA87E4F,16#FE2CE6E0,16#A3014314,16#4E0811A1,16#F7537E82,16#BD3AF235,16#2AD7D2BB,16#EB86D391];
+  U : ARRAY[64] OF INT := [
+  		07,12,17,22,07,12,17,22,07,12,17,22,07,12,17,22,
+  		05,09,14,20,05,09,14,20,05,09,14,20,05,09,14,20,
+  		04,11,16,23,04,11,16,23,04,11,16,23,04,11,16,23,
+  		06,10,15,21,06,10,15,21,06,10,15,21,06,10,15,21];
+  BUF : ARRAY[16] OF DWORD;
+  PAD : BOOL;
+  END : BOOL;
+END_VAR;
+L := LEN(IN1);
+
+WHILE NOT(END) DO
+  IF LEN(IN1) < 64 AND NOT(PAD) THEN
+    IN1 := CONCAT(IN1,'$80');
+	PAD := TRUE;
+  END_IF;
+	
+  FOR n := 0 TO 15 BY 1 DO
+    BUF[n] := 16#0;
+  END_FOR;
+
+  FOR i := 0 TO MIN(LEN(IN1),63) BY 1 DO
+    p := (i-MOD(i,4))/4;
+    n := MOD(i,4)*8;
+    IF i = LEN(IN1) AND i <= 55 THEN
+      BUF[14] := SHL(TO_DWORD(L),3);
+      END := TRUE;
+      EXIT;
+    ELSIF i < LEN(IN1) THEN
+      BUF[p] := BUF[p] OR SHL(TO_DWORD(TO_CHAR(MID(IN1,1,1+i))),n);
+    END_IF;
+  END_FOR;
+  
+  IF LEN(IN1) > 0 THEN
+  	IN1 := DELETE(IN1,MIN(LEN(IN1),64),1);  	
+  END_IF;
+
+  FOR n := 0 TO 3 DO
+  	W[n] := H[n];
+  END_FOR;
+
+  W[0] := W[1] + ROL(W[0] + ((W[1] AND W[2]) OR (NOT(W[1]) AND W[3])) + BUF[00] + T[00], U[00]);
+  W[3] := W[0] + ROL(W[3] + ((W[0] AND W[1]) OR (NOT(W[0]) AND W[2])) + BUF[01] + T[01], U[01]);
+  W[2] := W[3] + ROL(W[2] + ((W[3] AND W[0]) OR (NOT(W[3]) AND W[1])) + BUF[02] + T[02], U[02]);
+  W[1] := W[2] + ROL(W[1] + ((W[2] AND W[3]) OR (NOT(W[2]) AND W[0])) + BUF[03] + T[03], U[03]);
+  W[0] := W[1] + ROL(W[0] + ((W[1] AND W[2]) OR (NOT(W[1]) AND W[3])) + BUF[04] + T[04], U[04]);
+  W[3] := W[0] + ROL(W[3] + ((W[0] AND W[1]) OR (NOT(W[0]) AND W[2])) + BUF[05] + T[05], U[05]);
+  W[2] := W[3] + ROL(W[2] + ((W[3] AND W[0]) OR (NOT(W[3]) AND W[1])) + BUF[06] + T[06], U[06]);
+  W[1] := W[2] + ROL(W[1] + ((W[2] AND W[3]) OR (NOT(W[2]) AND W[0])) + BUF[07] + T[07], U[07]);
+  W[0] := W[1] + ROL(W[0] + ((W[1] AND W[2]) OR (NOT(W[1]) AND W[3])) + BUF[08] + T[08], U[08]);
+  W[3] := W[0] + ROL(W[3] + ((W[0] AND W[1]) OR (NOT(W[0]) AND W[2])) + BUF[09] + T[09], U[09]);
+  W[2] := W[3] + ROL(W[2] + ((W[3] AND W[0]) OR (NOT(W[3]) AND W[1])) + BUF[10] + T[10], U[10]);
+  W[1] := W[2] + ROL(W[1] + ((W[2] AND W[3]) OR (NOT(W[2]) AND W[0])) + BUF[11] + T[11], U[11]);
+  W[0] := W[1] + ROL(W[0] + ((W[1] AND W[2]) OR (NOT(W[1]) AND W[3])) + BUF[12] + T[12], U[12]);
+  W[3] := W[0] + ROL(W[3] + ((W[0] AND W[1]) OR (NOT(W[0]) AND W[2])) + BUF[13] + T[13], U[13]);
+  W[2] := W[3] + ROL(W[2] + ((W[3] AND W[0]) OR (NOT(W[3]) AND W[1])) + BUF[14] + T[14], U[14]);
+  W[1] := W[2] + ROL(W[1] + ((W[2] AND W[3]) OR (NOT(W[2]) AND W[0])) + BUF[15] + T[15], U[15]);
+
+  W[0] := W[1] + ROL(W[0] + ((W[1] AND W[3]) OR (W[2] AND NOT W[3])) + BUF[01] + T[16], U[16]);
+  W[3] := W[0] + ROL(W[3] + ((W[0] AND W[2]) OR (W[1] AND NOT W[2])) + BUF[06] + T[17], U[17]);
+  W[2] := W[3] + ROL(W[2] + ((W[3] AND W[1]) OR (W[0] AND NOT W[1])) + BUF[11] + T[18], U[18]);
+  W[1] := W[2] + ROL(W[1] + ((W[2] AND W[0]) OR (W[3] AND NOT W[0])) + BUF[00] + T[19], U[19]);
+  W[0] := W[1] + ROL(W[0] + ((W[1] AND W[3]) OR (W[2] AND NOT W[3])) + BUF[05] + T[20], U[20]);
+  W[3] := W[0] + ROL(W[3] + ((W[0] AND W[2]) OR (W[1] AND NOT W[2])) + BUF[10] + T[21], U[21]);
+  W[2] := W[3] + ROL(W[2] + ((W[3] AND W[1]) OR (W[0] AND NOT W[1])) + BUF[15] + T[22], U[22]);
+  W[1] := W[2] + ROL(W[1] + ((W[2] AND W[0]) OR (W[3] AND NOT W[0])) + BUF[04] + T[23], U[23]);
+  W[0] := W[1] + ROL(W[0] + ((W[1] AND W[3]) OR (W[2] AND NOT W[3])) + BUF[09] + T[24], U[24]);
+  W[3] := W[0] + ROL(W[3] + ((W[0] AND W[2]) OR (W[1] AND NOT W[2])) + BUF[14] + T[25], U[25]);
+  W[2] := W[3] + ROL(W[2] + ((W[3] AND W[1]) OR (W[0] AND NOT W[1])) + BUF[03] + T[26], U[26]);
+  W[1] := W[2] + ROL(W[1] + ((W[2] AND W[0]) OR (W[3] AND NOT W[0])) + BUF[08] + T[27], U[27]);
+  W[0] := W[1] + ROL(W[0] + ((W[1] AND W[3]) OR (W[2] AND NOT W[3])) + BUF[13] + T[28], U[28]);
+  W[3] := W[0] + ROL(W[3] + ((W[0] AND W[2]) OR (W[1] AND NOT W[2])) + BUF[02] + T[29], U[29]);
+  W[2] := W[3] + ROL(W[2] + ((W[3] AND W[1]) OR (W[0] AND NOT W[1])) + BUF[07] + T[30], U[30]);
+  W[1] := W[2] + ROL(W[1] + ((W[2] AND W[0]) OR (W[3] AND NOT W[0])) + BUF[12] + T[31], U[31]);
+
+  W[0] := W[1] + ROL(W[0] + ((W[1] XOR W[2] XOR W[3])) + BUF[05] + T[32], U[32]);
+  W[3] := W[0] + ROL(W[3] + ((W[0] XOR W[1] XOR W[2])) + BUF[08] + T[33], U[33]);
+  W[2] := W[3] + ROL(W[2] + ((W[3] XOR W[0] XOR W[1])) + BUF[11] + T[34], U[34]);
+  W[1] := W[2] + ROL(W[1] + ((W[2] XOR W[3] XOR W[0])) + BUF[14] + T[35], U[35]);
+  W[0] := W[1] + ROL(W[0] + ((W[1] XOR W[2] XOR W[3])) + BUF[01] + T[36], U[36]);
+  W[3] := W[0] + ROL(W[3] + ((W[0] XOR W[1] XOR W[2])) + BUF[04] + T[37], U[37]);
+  W[2] := W[3] + ROL(W[2] + ((W[3] XOR W[0] XOR W[1])) + BUF[07] + T[38], U[38]);
+  W[1] := W[2] + ROL(W[1] + ((W[2] XOR W[3] XOR W[0])) + BUF[10] + T[39], U[39]);
+  W[0] := W[1] + ROL(W[0] + ((W[1] XOR W[2] XOR W[3])) + BUF[13] + T[40], U[40]);
+  W[3] := W[0] + ROL(W[3] + ((W[0] XOR W[1] XOR W[2])) + BUF[00] + T[41], U[41]);
+  W[2] := W[3] + ROL(W[2] + ((W[3] XOR W[0] XOR W[1])) + BUF[03] + T[42], U[42]);
+  W[1] := W[2] + ROL(W[1] + ((W[2] XOR W[3] XOR W[0])) + BUF[06] + T[43], U[43]);
+  W[0] := W[1] + ROL(W[0] + ((W[1] XOR W[2] XOR W[3])) + BUF[09] + T[44], U[44]);
+  W[3] := W[0] + ROL(W[3] + ((W[0] XOR W[1] XOR W[2])) + BUF[12] + T[45], U[45]);
+  W[2] := W[3] + ROL(W[2] + ((W[3] XOR W[0] XOR W[1])) + BUF[15] + T[46], U[46]);
+  W[1] := W[2] + ROL(W[1] + ((W[2] XOR W[3] XOR W[0])) + BUF[02] + T[47], U[47]);
+
+  W[0] := W[1] + ROL(W[0] + (W[2] XOR (W[1] OR  NOT(W[3]))) + BUF[00] + T[48], U[48]);
+  W[3] := W[0] + ROL(W[3] + (W[1] XOR (W[0] OR  NOT(W[2]))) + BUF[07] + T[49], U[49]);
+  W[2] := W[3] + ROL(W[2] + (W[0] XOR (W[3] OR  NOT(W[1]))) + BUF[14] + T[50], U[50]);
+  W[1] := W[2] + ROL(W[1] + (W[3] XOR (W[2] OR  NOT(W[0]))) + BUF[05] + T[51], U[51]);
+  W[0] := W[1] + ROL(W[0] + (W[2] XOR (W[1] OR  NOT(W[3]))) + BUF[12] + T[52], U[52]);
+  W[3] := W[0] + ROL(W[3] + (W[1] XOR (W[0] OR  NOT(W[2]))) + BUF[03] + T[53], U[53]);
+  W[2] := W[3] + ROL(W[2] + (W[0] XOR (W[3] OR  NOT(W[1]))) + BUF[10] + T[54], U[54]);
+  W[1] := W[2] + ROL(W[1] + (W[3] XOR (W[2] OR  NOT(W[0]))) + BUF[01] + T[55], U[55]);
+  W[0] := W[1] + ROL(W[0] + (W[2] XOR (W[1] OR  NOT(W[3]))) + BUF[08] + T[56], U[56]);
+  W[3] := W[0] + ROL(W[3] + (W[1] XOR (W[0] OR  NOT(W[2]))) + BUF[15] + T[57], U[57]);
+  W[2] := W[3] + ROL(W[2] + (W[0] XOR (W[3] OR  NOT(W[1]))) + BUF[06] + T[58], U[58]);
+  W[1] := W[2] + ROL(W[1] + (W[3] XOR (W[2] OR  NOT(W[0]))) + BUF[13] + T[59], U[59]);
+  W[0] := W[1] + ROL(W[0] + (W[2] XOR (W[1] OR  NOT(W[3]))) + BUF[04] + T[60], U[60]);
+  W[3] := W[0] + ROL(W[3] + (W[1] XOR (W[0] OR  NOT(W[2]))) + BUF[11] + T[61], U[61]);
+  W[2] := W[3] + ROL(W[2] + (W[0] XOR (W[3] OR  NOT(W[1]))) + BUF[02] + T[62], U[62]);
+  W[1] := W[2] + ROL(W[1] + (W[3] XOR (W[2] OR  NOT(W[0]))) + BUF[09] + T[63], U[63]);
+ 
+  FOR n := 0 TO 3 DO
+  	H[n] := H[n] + W[n];
+  END_FOR;
+END_WHILE;
+
+// Concatenate output
+FOR n := LOWER_BOUND(H,1) TO UPPER_BOUND(H,1) DO
+  FOR p := 0 TO 3 BY 1 DO
+  	HASH_MD5 := INSERT(HASH_MD5,RIGHT(REPLACE(TO_STRING(TO_BYTE(SHR(H[n],p*8))),'000',3,1),2),LEN(HASH_MD5));
+  END_FOR;
+END_FOR;
+
+// Lowercase Hex
+FOR n := TO_USINT(16#41) TO TO_USINT(16#46) DO
+  WHILE FIND(HASH_MD5,TO_STRING(TO_CHAR(TO_BYTE(n)))) > 0 DO
+  	HASH_MD5 := REPLACE(HASH_MD5,TO_STRING(TO_CHAR(TO_BYTE(n+32))),1,FIND(HASH_MD5,TO_STRING(TO_CHAR(TO_BYTE(n)))));
+  END_WHILE;
+END_FOR;]]></ST>
+    </Algorithm>
+  </POUBasicFunction>
+</POUType>

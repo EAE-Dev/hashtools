@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE POUType SYSTEM "../LibraryElement.dtd">
+<POUType GUID="95598fc4-f2b8-4822-a36f-758c4bfc33df" Name="HASH_SHA384" Comment="Function" Namespace="SEFR.HashTools">
+  <Attribute Name="Configuration.FB.IDCounter" Value="0" />
+  <Identification Standard="1131-3" />
+  <VersionInfo Version="0.0" Author="SESA66148" Date="11/21/2024" Remarks="Template" />
+  <InterfaceList ReturnValueType="STRING[96]">
+    <InputVars>
+      <VarDeclaration Name="IN1" Type="STRING[65535]" />
+    </InputVars>
+  </InterfaceList>
+  <POUBasicFunction>
+    <Algorithm Name="HASH_SHA384" Comment="Algorithm">
+      <ST><![CDATA[VAR_TEMP
+  i,p,n,L : DINT;
+  W : ARRAY[10] OF LWORD;
+  H : ARRAY[8] OF LWORD := [
+        16#cbbb9d5dc1059ed8,16#629a292a367cd507,16#9159015a3070dd17,16#152fecd8f70e5939,
+        16#67332667ffc00b31,16#8eb44a8768581511,16#db0c2e0d64f98fa7,16#47b5481dbefa4fa4];
+  K : ARRAY[80] OF LWORD := [
+        16#428a2f98d728ae22,16#7137449123ef65cd,16#b5c0fbcfec4d3b2f,16#e9b5dba58189dbbc,
+        16#3956c25bf348b538,16#59f111f1b605d019,16#923f82a4af194f9b,16#ab1c5ed5da6d8118,
+        16#d807aa98a3030242,16#12835b0145706fbe,16#243185be4ee4b28c,16#550c7dc3d5ffb4e2,
+        16#72be5d74f27b896f,16#80deb1fe3b1696b1,16#9bdc06a725c71235,16#c19bf174cf692694,
+        16#e49b69c19ef14ad2,16#efbe4786384f25e3,16#0fc19dc68b8cd5b5,16#240ca1cc77ac9c65,
+        16#2de92c6f592b0275,16#4a7484aa6ea6e483,16#5cb0a9dcbd41fbd4,16#76f988da831153b5,
+        16#983e5152ee66dfab,16#a831c66d2db43210,16#b00327c898fb213f,16#bf597fc7beef0ee4,
+        16#c6e00bf33da88fc2,16#d5a79147930aa725,16#06ca6351e003826f,16#142929670a0e6e70,
+        16#27b70a8546d22ffc,16#2e1b21385c26c926,16#4d2c6dfc5ac42aed,16#53380d139d95b3df,
+        16#650a73548baf63de,16#766a0abb3c77b2a8,16#81c2c92e47edaee6,16#92722c851482353b,
+        16#a2bfe8a14cf10364,16#a81a664bbc423001,16#c24b8b70d0f89791,16#c76c51a30654be30,
+        16#d192e819d6ef5218,16#d69906245565a910,16#f40e35855771202a,16#106aa07032bbd1b8,
+        16#19a4c116b8d2d0c8,16#1e376c085141ab53,16#2748774cdf8eeb99,16#34b0bcb5e19b48a8,
+        16#391c0cb3c5c95a63,16#4ed8aa4ae3418acb,16#5b9cca4f7763e373,16#682e6ff3d6b2b8a3,
+        16#748f82ee5defb2fc,16#78a5636f43172f60,16#84c87814a1f0ab72,16#8cc702081a6439ec,
+        16#90befffa23631e28,16#a4506cebde82bde9,16#bef9a3f7b2c67915,16#c67178f2e372532b,
+        16#ca273eceea26619c,16#d186b8c721c0c207,16#eada7dd6cde0eb1e,16#f57d4f7fee6ed178,
+        16#06f067aa72176fba,16#0a637dc5a2c898a6,16#113f9804bef90dae,16#1b710b35131c471b,
+        16#28db77f523047d84,16#32caab7b40c72493,16#3c9ebe0a15c9bebc,16#431d67c49c100d4c,
+        16#4cc5d4becb3e42b6,16#597f299cfc657e2a,16#5fcb6fab3ad6faec,16#6c44198c4a475817];
+  BUF : ARRAY[80] OF LWORD;
+  PAD : BOOL;
+  END : BOOL;
+END_VAR;
+L := LEN(IN1);
+
+WHILE NOT(END) DO
+  IF LEN(IN1) < 128 AND NOT(PAD) THEN
+    IN1 := CONCAT(IN1,'$80');
+	PAD := TRUE;
+  END_IF;
+
+  FOR n := 0 TO 15 BY 1 DO
+    BUF[n] := 16#0;
+  END_FOR;
+
+  FOR i := 0 TO MIN(LEN(IN1),127) BY 1 DO
+    p := (i-MOD(i,8))/8;
+    n := (7-MOD(i,8))*8;
+    IF i = LEN(IN1) AND i <= 119 THEN
+      BUF[15] := SHL(TO_DWORD(L),3);
+      END := TRUE;
+      EXIT;
+    ELSIF i < LEN(IN1) THEN
+      BUF[p] := BUF[p] OR SHL(TO_LWORD(TO_CHAR(MID(IN1,1,1+i))),n);
+    END_IF;
+  END_FOR;
+  
+  IF LEN(IN1) > 0 THEN
+  	IN1 := DELETE(IN1,MIN(LEN(IN1),128),1);  	
+  END_IF;
+  
+  FOR n := 0 TO 7 DO
+  	W[n] := H[n];
+  END_FOR;
+
+  FOR n := 16 TO 79 DO
+    BUF[n] := (ROR(BUF[n-2],19) XOR ROR(BUF[n-2],61) XOR SHR(BUF[n-2],6)) 
+           + BUF[n-7]
+           + (ROR(BUF[n-15],1) XOR ROR(BUF[n-15],8) XOR SHR(BUF[n-15],7))
+           + BUF[n-16];
+  END_FOR;
+
+  FOR n := 0 TO 79 DO
+    W[8] := W[7] 
+         + (ROR(W[4],14) XOR ROR(W[4],18) XOR ROR(W[4],41))
+         + ((W[4] AND W[5]) XOR ((NOT(W[4])) AND W[6]))
+         + BUF[n]
+         + K[n];
+    W[9] := (ROR(W[0],28) XOR ROR(W[0],34) XOR ROR(W[0],39)) 
+         + ((W[0] AND W[1]) XOR (W[0] AND W[2]) XOR (W[1] AND W[2]));
+    W[7] := W[6];
+    W[6] := W[5];
+    W[5] := W[4];
+    W[4] := W[3] + W[8];
+    W[3] := W[2];
+    W[2] := W[1];
+    W[1] := W[0];
+    W[0] := W[8] + W[9];
+  END_FOR;
+
+  FOR n := 0 TO 7 DO
+  	H[n] := H[n] + W[n];
+  END_FOR;
+END_WHILE;
+
+// Concatenate output
+FOR n := LOWER_BOUND(H,1) TO UPPER_BOUND(H,1) DO
+  FOR p := 7 TO 0 BY -1 DO
+	IF LEN(HASH_SHA384) < 96 THEN
+  	  HASH_SHA384 := INSERT(HASH_SHA384,RIGHT(REPLACE(TO_STRING(TO_BYTE(SHR(H[n],p*8))),'000',3,1),2),LEN(HASH_SHA384));
+  	END_IF;
+  END_FOR;
+END_FOR;
+
+// Lowercase Hex
+FOR n := TO_USINT(16#41) TO TO_USINT(16#46) DO
+  WHILE FIND(HASH_SHA384,TO_STRING(TO_CHAR(TO_BYTE(n)))) > 0 DO
+  	HASH_SHA384 := REPLACE(HASH_SHA384,TO_STRING(TO_CHAR(TO_BYTE(n+32))),1,FIND(HASH_SHA384,TO_STRING(TO_CHAR(TO_BYTE(n)))));
+  END_WHILE;
+END_FOR;]]></ST>
+    </Algorithm>
+  </POUBasicFunction>
+</POUType>

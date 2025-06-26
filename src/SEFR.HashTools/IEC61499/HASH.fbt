@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE FBType SYSTEM "../LibraryElement.dtd">
+<FBType GUID="12bbe5de-c437-43ac-8b50-75165469d2a5" Name="HASH" Comment="Basic Function Block Type" Namespace="SEFR.HashTools">
+  <Identification Standard="61499-2" />
+  <VersionInfo Version="0.0" Author="SESA66148" Date="4/22/2025" Remarks="Template" />
+  <InterfaceList>
+    <EventInputs>
+      <Event Name="REQ" Comment="Normal Execution Request">
+        <With Var="HASH" />
+        <With Var="DATA" />
+      </Event>
+    </EventInputs>
+    <EventOutputs>
+      <Event Name="CNF" Comment="Execution Confirmation">
+        <With Var="RESULT" />
+      </Event>
+    </EventOutputs>
+    <InputVars>
+      <VarDeclaration Name="HASH" Type="USINT" Comment="0=MD5 | 1=SHA1 | 2=SHA224 | 3=SHA256 | 4=SHA384 | 5=SHA512 | 6=SHA512_224 | 7=SHA512_256">
+        <Attribute Name="ParameterEditor" Value="ComboBox{Enums=MD5 = 0|SHA1 = 1|SHA224 = 2|SHA256 = 3|SHA384 = 4|SHA512 = 5|SHA512_224 = 6|SHA512_256 = 7}" />
+      </VarDeclaration>
+      <VarDeclaration Name="DATA" Type="STRING[65000]" />
+    </InputVars>
+    <OutputVars>
+      <VarDeclaration Name="RESULT" Type="STRING[128]" />
+    </OutputVars>
+  </InterfaceList>
+  <BasicFB>
+    <Attribute Name="FBType.Basic.Algorithm.Order" Value="REQ" />
+    <ECC>
+      <ECState Name="START" Comment="Initial State" x="552.9412" y="429.4117" />
+      <ECState Name="REQ" Comment="Normal execution" x="1133.647" y="440.9412">
+        <ECAction Algorithm="REQ" Output="CNF" />
+      </ECState>
+      <ECTransition Source="START" Destination="REQ" Condition="REQ" x="859.5941" y="348.1721">
+        <Attribute Name="Configuration.Transaction.BezierPoints" Value="200.3763,83.58159,229.6689,84.16317" />
+      </ECTransition>
+      <ECTransition Source="REQ" Destination="START" Condition="1" x="857.2625" y="522.4213">
+        <Attribute Name="Configuration.Transaction.BezierPoints" Value="229.1726,134.1584,199.8801,133.5768" />
+      </ECTransition>
+    </ECC>
+    <Algorithm Name="REQ" Comment="Normally executed algorithm">
+      <ST><![CDATA[CASE HASH OF
+	0: RESULT := HASH_MD5(DATA);
+	1: RESULT := HASH_SHA1(DATA);
+	2: RESULT := HASH_SHA224(DATA);
+	3: RESULT := HASH_SHA256(DATA);
+	4: RESULT := HASH_SHA384(DATA);
+	5: RESULT := HASH_SHA512(DATA);
+	6: RESULT := HASH_SHA512_224(DATA);
+	7: RESULT := HASH_SHA512_256(DATA);
+ELSE
+	RESULT := '';
+END_CASE;]]></ST>
+    </Algorithm>
+  </BasicFB>
+</FBType>

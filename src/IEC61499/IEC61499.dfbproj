@@ -58,116 +58,8 @@
     <None Include="..\General\ProjectInfo.xml" />
     <None Include="..\General\se-rbac-roles.json" />
     <None Include="..\General\se-rbac-users.json" />
-    <None Include="ControlLogic\ControlLogic.cfg">
-      <DependentUpon>ControlLogic.fbt</DependentUpon>
-      <IEC61499Type>CAT</IEC61499Type>
-    </None>
-    <None Include="ControlLogic\ControlLogic.doc.xml">
-      <DependentUpon>ControlLogic.fbt</DependentUpon>
-    </None>
-    <None Include="ControlLogic\ControlLogic.meta.xml">
-      <DependentUpon>ControlLogic.fbt</DependentUpon>
-    </None>
-    <None Include="ControlLogic\ControlLogic_CAT.offline.xml">
-      <DependentUpon>ControlLogic.fbt</DependentUpon>
-      <Plugin>OfflineParametrizationEditor</Plugin>
-      <IEC61499Type>CAT_OFFLINE</IEC61499Type>
-    </None>
-    <None Include="ControlLogic\ControlLogic_CAT.opcua.xml">
-      <DependentUpon>ControlLogic.fbt</DependentUpon>
-      <Plugin>OPCUAConfigurator</Plugin>
-      <IEC61499Type>CAT_OPCUA</IEC61499Type>
-    </None>
-    <None Include="ControlLogic\ControlLogic_HMI.doc.xml">
-      <DependentUpon>ControlLogic.fbt</DependentUpon>
-    </None>
-    <None Include="ControlLogic\ControlLogic_HMI.meta.xml">
-      <DependentUpon>ControlLogic.fbt</DependentUpon>
-    </None>
-    <None Include="ControlLogic\ControlLogic_HMI.offline.xml">
-      <DependentUpon>ControlLogic.fbt</DependentUpon>
-      <Plugin>OfflineParametrizationEditor</Plugin>
-      <IEC61499Type>CAT_OFFLINE</IEC61499Type>
-    </None>
-    <None Include="ControlLogic\ControlLogic_HMI.opcua.xml">
-      <DependentUpon>ControlLogic.fbt</DependentUpon>
-      <Plugin>OPCUAConfigurator</Plugin>
-      <IEC61499Type>CAT_OPCUA</IEC61499Type>
-    </None>
-    <None Include="FieldConnector\FieldConnector.cfg">
-      <DependentUpon>FieldConnector.fbt</DependentUpon>
-      <IEC61499Type>CAT</IEC61499Type>
-    </None>
-    <None Include="FieldConnector\FieldConnector.doc.xml">
-      <DependentUpon>FieldConnector.fbt</DependentUpon>
-    </None>
-    <None Include="FieldConnector\FieldConnector.meta.xml">
-      <DependentUpon>FieldConnector.fbt</DependentUpon>
-    </None>
-    <None Include="FieldConnector\FieldConnector_CAT.offline.xml">
-      <DependentUpon>FieldConnector.fbt</DependentUpon>
-      <Plugin>OfflineParametrizationEditor</Plugin>
-      <IEC61499Type>CAT_OFFLINE</IEC61499Type>
-    </None>
-    <None Include="FieldConnector\FieldConnector_CAT.opcua.xml">
-      <DependentUpon>FieldConnector.fbt</DependentUpon>
-      <Plugin>OPCUAConfigurator</Plugin>
-      <IEC61499Type>CAT_OPCUA</IEC61499Type>
-    </None>
-    <None Include="FieldConnector\FieldConnector_HMI.doc.xml">
-      <DependentUpon>FieldConnector.fbt</DependentUpon>
-    </None>
-    <None Include="FieldConnector\FieldConnector_HMI.meta.xml">
-      <DependentUpon>FieldConnector.fbt</DependentUpon>
-    </None>
-    <None Include="FieldConnector\FieldConnector_HMI.offline.xml">
-      <DependentUpon>FieldConnector.fbt</DependentUpon>
-      <Plugin>OfflineParametrizationEditor</Plugin>
-      <IEC61499Type>CAT_OFFLINE</IEC61499Type>
-    </None>
-    <None Include="FieldConnector\FieldConnector_HMI.opcua.xml">
-      <DependentUpon>FieldConnector.fbt</DependentUpon>
-      <Plugin>OPCUAConfigurator</Plugin>
-      <IEC61499Type>CAT_OPCUA</IEC61499Type>
-    </None>
     <none Include="Languages\neutral\Dictionary.Resources.xml" />
     <None Include="Project.doc.xml" />
-    <None Include="SubSystem\SubSystem.cfg">
-      <DependentUpon>SubSystem.fbt</DependentUpon>
-      <IEC61499Type>CAT</IEC61499Type>
-    </None>
-    <None Include="SubSystem\SubSystem.doc.xml">
-      <DependentUpon>SubSystem.fbt</DependentUpon>
-    </None>
-    <None Include="SubSystem\SubSystem.meta.xml">
-      <DependentUpon>SubSystem.fbt</DependentUpon>
-    </None>
-    <None Include="SubSystem\SubSystem_CAT.offline.xml">
-      <DependentUpon>SubSystem.fbt</DependentUpon>
-      <Plugin>OfflineParametrizationEditor</Plugin>
-      <IEC61499Type>CAT_OFFLINE</IEC61499Type>
-    </None>
-    <None Include="SubSystem\SubSystem_CAT.opcua.xml">
-      <DependentUpon>SubSystem.fbt</DependentUpon>
-      <Plugin>OPCUAConfigurator</Plugin>
-      <IEC61499Type>CAT_OPCUA</IEC61499Type>
-    </None>
-    <None Include="SubSystem\SubSystem_HMI.doc.xml">
-      <DependentUpon>SubSystem.fbt</DependentUpon>
-    </None>
-    <None Include="SubSystem\SubSystem_HMI.meta.xml">
-      <DependentUpon>SubSystem.fbt</DependentUpon>
-    </None>
-    <None Include="SubSystem\SubSystem_HMI.offline.xml">
-      <DependentUpon>SubSystem.fbt</DependentUpon>
-      <Plugin>OfflineParametrizationEditor</Plugin>
-      <IEC61499Type>CAT_OFFLINE</IEC61499Type>
-    </None>
-    <None Include="SubSystem\SubSystem_HMI.opcua.xml">
-      <DependentUpon>SubSystem.fbt</DependentUpon>
-      <Plugin>OPCUAConfigurator</Plugin>
-      <IEC61499Type>CAT_OPCUA</IEC61499Type>
-    </None>
     <None Include="System\00000000-0000-0000-0000-000000000000.cfg">
       <DependentUpon>00000000-0000-0000-0000-000000000000.system</DependentUpon>
     </None>
@@ -192,36 +84,6 @@
     <Folder Include="Log" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ControlLogic\ControlLogic.fbt">
-      <IEC61499Type>CAT</IEC61499Type>
-      <Parent>.Templates</Parent>
-    </Compile>
-    <Compile Include="ControlLogic\ControlLogic_HMI.fbt">
-      <IEC61499Type>CAT</IEC61499Type>
-      <Usage>Private</Usage>
-      <DependentUpon>ControlLogic.fbt</DependentUpon>
-      <HMI>..\HMI\ControlLogic\ControlLogic_sDefault.cnv.cs</HMI>
-    </Compile>
-    <Compile Include="FieldConnector\FieldConnector.fbt">
-      <IEC61499Type>CAT</IEC61499Type>
-      <Parent>.Templates</Parent>
-    </Compile>
-    <Compile Include="FieldConnector\FieldConnector_HMI.fbt">
-      <IEC61499Type>CAT</IEC61499Type>
-      <Usage>Private</Usage>
-      <DependentUpon>FieldConnector.fbt</DependentUpon>
-      <HMI>..\HMI\FieldConnector\FieldConnector_sDefault.cnv.cs</HMI>
-    </Compile>
-    <Compile Include="SubSystem\SubSystem.fbt">
-      <IEC61499Type>CAT</IEC61499Type>
-      <Parent>.Templates</Parent>
-    </Compile>
-    <Compile Include="SubSystem\SubSystem_HMI.fbt">
-      <IEC61499Type>CAT</IEC61499Type>
-      <Usage>Private</Usage>
-      <DependentUpon>SubSystem.fbt</DependentUpon>
-      <HMI>..\HMI\SubSystem\SubSystem_sDefault.cnv.cs</HMI>
-    </Compile>
     <Compile Include="System\00000000-0000-0000-0000-000000000000.system">
       <IEC61499Type>System</IEC61499Type>
     </Compile>

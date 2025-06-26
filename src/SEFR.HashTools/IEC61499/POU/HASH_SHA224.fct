@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE POUType SYSTEM "../LibraryElement.dtd">
+<POUType GUID="33ff74f6-dc92-4e62-aae9-3abd9b62ed23" Name="HASH_SHA224" Comment="Function" Namespace="SEFR.HashTools">
+  <Attribute Name="Configuration.FB.IDCounter" Value="0" />
+  <Identification Standard="1131-3" />
+  <VersionInfo Version="0.0" Author="SESA66148" Date="11/21/2024" Remarks="Template" />
+  <InterfaceList ReturnValueType="STRING[56]">
+    <InputVars>
+      <VarDeclaration Name="IN1" Type="STRING[65535]" />
+    </InputVars>
+  </InterfaceList>
+  <POUBasicFunction>
+    <Algorithm Name="HASH_SHA224" Comment="Algorithm">
+      <ST><![CDATA[VAR_TEMP
+  i,p,n,L : DINT;
+  W : ARRAY[10] OF DWORD;
+  H : ARRAY[8] OF DWORD := [
+        16#c1059ed8,16#367cd507,16#3070dd17,16#f70e5939,
+        16#ffc00b31,16#68581511,16#64f98fa7,16#befa4fa4];
+  K : ARRAY[64] OF DWORD := [
+        16#428a2f98,16#71374491,16#b5c0fbcf,16#e9b5dba5,16#3956c25b,16#59f111f1,16#923f82a4,16#ab1c5ed5,
+        16#d807aa98,16#12835b01,16#243185be,16#550c7dc3,16#72be5d74,16#80deb1fe,16#9bdc06a7,16#c19bf174,
+        16#e49b69c1,16#efbe4786,16#0fc19dc6,16#240ca1cc,16#2de92c6f,16#4a7484aa,16#5cb0a9dc,16#76f988da,
+        16#983e5152,16#a831c66d,16#b00327c8,16#bf597fc7,16#c6e00bf3,16#d5a79147,16#06ca6351,16#14292967,
+        16#27b70a85,16#2e1b2138,16#4d2c6dfc,16#53380d13,16#650a7354,16#766a0abb,16#81c2c92e,16#92722c85,
+        16#a2bfe8a1,16#a81a664b,16#c24b8b70,16#c76c51a3,16#d192e819,16#d6990624,16#f40e3585,16#106aa070,
+        16#19a4c116,16#1e376c08,16#2748774c,16#34b0bcb5,16#391c0cb3,16#4ed8aa4a,16#5b9cca4f,16#682e6ff3,
+        16#748f82ee,16#78a5636f,16#84c87814,16#8cc70208,16#90befffa,16#a4506ceb,16#bef9a3f7,16#c67178f2];
+  BUF : ARRAY[64] OF DWORD;
+  PAD : BOOL;
+  END : BOOL;
+END_VAR;
+L := LEN(IN1);
+
+WHILE NOT(END) DO
+  IF LEN(IN1) < 64 AND NOT(PAD) THEN
+    IN1 := CONCAT(IN1,'$80');
+	PAD := TRUE;
+  END_IF;
+  
+  FOR n := 0 TO 15 BY 1 DO
+    BUF[n] := 16#0;
+  END_FOR;
+
+  FOR i := 0 TO MIN(LEN(IN1),63) BY 1 DO
+    p := (i-MOD(i,4))/4;
+    n := (3-MOD(i,4))*8;
+    IF i = LEN(IN1) AND i <= 55 THEN
+      BUF[15] := SHL(TO_DWORD(L),3);
+      END := TRUE;
+      EXIT;
+    ELSIF i < LEN(IN1) THEN
+      BUF[p] := BUF[p] OR SHL(TO_DWORD(TO_CHAR(MID(IN1,1,1+i))),n);
+    END_IF;
+  END_FOR;
+  
+  IF LEN(IN1) > 0 THEN
+  	IN1 := DELETE(IN1,MIN(LEN(IN1),64),1);  	
+  END_IF;
+  
+  FOR n := 0 TO 7 DO
+  	W[n] := H[n];
+  END_FOR;
+
+  FOR n := 16 TO 63 DO
+    BUF[n] := (ROR(BUF[n-2],17) XOR ROR(BUF[n-2],19) XOR SHR(BUF[n-2],10)) 
+           + BUF[n-7]
+           + (ROR(BUF[n-15],7) XOR ROR(BUF[n-15],18) XOR SHR(BUF[n-15],3))
+           + BUF[n-16];
+  END_FOR;
+
+  FOR n := 0 TO 63 DO 
+    W[8] := W[7] 
+         + (ROR(W[4],6) XOR ROR(W[4],11) XOR ROR(W[4],25))
+         + ((W[4] AND W[5]) XOR (NOT(W[4]) AND W[6]))
+         + BUF[n]
+         + K[n];
+    W[9] := (ROR(W[0],2) XOR ROR(W[0],13) XOR ROR(W[0],22)) 
+         + ((W[0] AND W[1]) XOR (W[0] AND W[2]) XOR (W[1] AND W[2]));
+    W[7] := W[6];
+    W[6] := W[5];
+    W[5] := W[4];
+    W[4] := W[3] + W[8];
+    W[3] := W[2];
+    W[2] := W[1];
+    W[1] := W[0];
+    W[0] := W[8] + W[9];
+  END_FOR;
+
+  FOR n := 0 TO 7 DO
+  	H[n] := H[n] + W[n];
+  END_FOR;
+END_WHILE;
+
+// Concatenate output
+FOR n := LOWER_BOUND(H,1) TO UPPER_BOUND(H,1) DO
+  FOR p := 3 TO 0 BY -1 DO
+	IF LEN(HASH_SHA224) < 56 THEN
+	  HASH_SHA224 := INSERT(HASH_SHA224,RIGHT(REPLACE(TO_STRING(TO_BYTE(SHR(H[n],p*8))),'000',3,1),2),LEN(HASH_SHA224));
+	END_IF;
+  END_FOR;
+END_FOR;
+
+// Lowercase Hex
+FOR n := TO_USINT(16#41) TO TO_USINT(16#46) DO
+  WHILE FIND(HASH_SHA224,TO_STRING(TO_CHAR(TO_BYTE(n)))) > 0 DO
+  	HASH_SHA224 := REPLACE(HASH_SHA224,TO_STRING(TO_CHAR(TO_BYTE(n+32))),1,FIND(HASH_SHA224,TO_STRING(TO_CHAR(TO_BYTE(n)))));
+  END_WHILE;
+END_FOR;]]></ST>
+    </Algorithm>
+  </POUBasicFunction>
+</POUType>
